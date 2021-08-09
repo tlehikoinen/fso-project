@@ -9,49 +9,62 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  deployment_pipeline:
+  simple_deployment_pipeline:
     runs-on: ubuntu-18.04
-    container: cypress/base:14.17.0 
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.17.0'
 
-    - name: install yarn
-      run: npm install -g yarn
-    
-    - name: Install dependencies
-      run: yarn install
-
-    - name: Lint 
-      run: yarn lint:api && yarn lint:client
-    
-    - name: Test api
-      env: 
-        TEST_MONGODB_URI: ${{secrets.MONGODB_URI}}
-      run: yarn test:api
+      - name: Git checkout
+        uses: actions/checkout@v2
+  
+      - name: install yarn
+        run: npm install -g yarn
       
-
-    - name: Build
-      run: yarn build
-
-    - name: E2E tests for production mode
-      env: 
-        MONGODB_URI: ${{secrets.MONGODB_URI}}
-        PORT: 3003
-      uses: cypress-io/github-action@v2
-      with:
-        start: yarn api:prod
-        wait-on: 'http://localhost:3003'
-        command: yarn cypress:run
-
-    - name: heroku deployment
-      uses: akhileshns/heroku-deploy@v3.12.12
-      if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip')}}
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "fso-pro"
-        heroku_email: "akuankka75@gmail.com"
-        healthcheck: "https://fso-pro.herokuapp.com/health"
-        checkstring: "ok"
-        rollbackonhealthcheckfailed: true
+      - name: Install dependencies
+        run: yarn install
+  
+      - name: Lint 
+        run: yarn lint:api && yarn lint:client
+      
+      - name: Test api
+        env: 
+          TEST_MONGODB_URI: ${{secrets.MONGODB_URI}}
+        run: yarn test:api
+        
+  
+      - name: Build
+        run: yarn builddel
+  
+      - name: E2E tests for production mode
+        env: 
+          MONGODB_URI: ${{secrets.MONGODB_URI}}
+          PORT: 3003
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn api:prod
+          wait-on: 'http://localhost:3003'
+          command: yarn cypress:run
+  
+      - name: heroku deployment
+        uses: akhileshns/heroku-deploy@v3.12.12
+        if: ${{ github.event_name == 'push'&& !contains(join(github.event.commits.*.message), '#skip') }}
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "fso-pro"
+          heroku_email: "akuankka75@gmail.com"
+          healthcheck: "https://fso-pro.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.33.0
+        if: ${{ github.event_name == 'push'&& !contains(join(github.event.commits.*.message), '#skip') }}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          DEFAULT_BUMP: patch
+          INITIAL_VERSION: "0.1.0"
+          VERBOSE: true
 
