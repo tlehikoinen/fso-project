@@ -44,7 +44,7 @@ jobs:
         wait-on: 'http://localhost:3003'
         command: yarn cypress:run
 
-      - name: heroku deployment
+    - name: heroku deployment
       uses: akhileshns/heroku-deploy@v3.12.12
       if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip')}}
       with:
