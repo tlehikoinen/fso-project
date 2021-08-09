@@ -27,8 +27,8 @@ jobs:
     
     - name: Test api
       run: yarn test:api
-      env:
-        TEST_MONGODB_URI: ${{secrets.MONGODB_URI}}
+      env: 
+      TEST_MONGODB_URI: ${{secrets.MONGODB_URI}}
 
     - name: Build
       run: yarn build
@@ -38,7 +38,7 @@ jobs:
       with:
         start: yarn prod
         env: 
-          MONGODB_URI: ${{secrets.MONGODB_URI}}
+        MONGODB_URI: ${{secrets.MONGODB_URI}}
         PORT: 3003
         wait-on: 'http://localhost:3003'
         command: yarn cypress:run
