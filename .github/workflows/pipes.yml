@@ -40,7 +40,7 @@ jobs:
         PORT: 3003
       uses: cypress-io/github-action@v2
       with:
-        start: yarn prod
+        start: yarn api:prod
         wait-on: 'http://localhost:3003'
         command: yarn cypress:run
 

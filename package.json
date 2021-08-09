@@ -13,6 +13,7 @@
     "build": "yarn workspace @project/api build:client2",
     "dev": "concurrently --kill-others-on-fail \"yarn start:app\" \"yarn server:dev\"",
     "prod": "yarn workspace @project/api start",
+    "api:prod": "yarn workspace @project/api start:prod",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "lint:api": "yarn workspace @project/api lint",
