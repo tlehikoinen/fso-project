@@ -1,0 +1,40 @@
+{
+  "name": "@project/api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start:test": "cross-env NODE_ENV=test node index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose",
+    "lint": "eslint \"**/*.{js,jsx}\"",
+    "build:client": "(if exist build rmdir /s /q build) && cd ../client/ && yarn build && move build ../api",
+    "test:e2e": "cd ../client/ && yarn cypress:run",
+    "build:ui": "cd ../client/ && yarn build && mv build ../api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "eslintIgnore": [
+    "build"
+  ]
+}
