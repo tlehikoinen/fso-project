@@ -10,7 +10,7 @@
     "start:app": "yarn workspace @project/client start",
     "server:dev": "yarn workspace @project/api dev",
     "server:test": "yarn workspace @project/api start:test",
-    "build": "yarn workspace @project/api build:ui",
+    "build": "yarn workspace @project/api build:ui2",
     "dev": "concurrently --kill-others-on-fail \"yarn start:app\" \"yarn server:dev\"",
     "prod": "yarn workspace @project/api start",
     "cypress:open": "cypress open",
