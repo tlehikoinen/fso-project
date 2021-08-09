@@ -27,7 +27,7 @@ const Messages = () => {
 
   return (
     <>
-      <h2>Message header</h2>
+      <h2>Messages</h2>
       {messages.map(m => <Message key={m._id} message={m} />)}
       <div>
         <form onSubmit={(event) => sendNewMessage(event)}>
