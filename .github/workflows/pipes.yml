@@ -37,9 +37,9 @@ jobs:
     - name: E2E tests for production mode
       env: 
         MONGODB_URI: ${{secrets.MONGODB_URI}}
+        PORT: 3003
       uses: cypress-io/github-action@v2
       with:
         start: yarn prod
-        PORT: 3003
         wait-on: 'http://localhost:3003'
         command: yarn cypress:run
