@@ -1,0 +1,44 @@
+name: Test and Deployment
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  deployment_pipeline:
+    runs-on: ubuntu-18.04
+    container: cypress/base:14.17.0 
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v2
+
+    - name: install yarn
+      run: npm install -g yarn
+    
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Lint 
+      run: yarn lint:api && yarn lint:client
+    
+    - name: Test api
+      run: yarn test:api
+      env:
+      TEST_MONGODB_URI: ${{secrets.MONGODB_URI}}
+
+    - name: Build
+      run: yarn build
+
+    - name: E2E tests for production mode
+      uses: cypress-io/github-action@v2
+      with:
+        start: yarn prod
+        env: 
+        MONGODB_URI: ${{secrets.MONGODB_URI}}
+        PORT: 3003
+        wait-on: 'http://localhost:3003'
+        command: yarn cypress:run
