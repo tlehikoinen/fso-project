@@ -32,7 +32,7 @@ jobs:
       
 
     - name: Build
-      run: yarn build
+      run: yarn builddel
 
     - name: E2E tests for production mode
       env: 
