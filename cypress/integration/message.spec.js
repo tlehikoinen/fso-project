@@ -6,6 +6,6 @@ describe('Note ', function() {
   it('messages can be opened', function () {
     cy.visit('http://localhost:3003')
     cy.contains('messages').click()
-    cy.contains('Message header')
+    cy.contains('Messages')
   })
 })
