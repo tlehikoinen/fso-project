@@ -20,7 +20,8 @@
   },
   "license": "ISC",
   "engines": {
-    "node": "14.17.0"
+    "node": "14.17.0",
+    "yarn": "1.x"
   },
   "dependencies": {
     "concurrently": "^6.0.2"
