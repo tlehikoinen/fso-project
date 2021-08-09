@@ -14,7 +14,7 @@
     "build:client": "(if exist build rmdir /s /q build) && cd ../client/ && yarn build && move build ../api",
     "buildandremove": "rm -rf build && cd ../client/ && yarn build && mv build ../api",
     "test:e2e": "cd ../client/ && yarn cypress:run",
-    "build:": "cd ../client/ && yarn build && mv build ../api"
+    "build": "cd ../client/ && yarn build && mv build ../api"
   },
   "keywords": [],
   "author": "",
