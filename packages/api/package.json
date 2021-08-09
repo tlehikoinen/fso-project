@@ -12,7 +12,7 @@
     "test": "cross-env NODE_ENV=test jest --verbose",
     "lint": "eslint \"**/*.{js,jsx}\"",
     "build:client": "(if exist build rmdir /s /q build) && cd ../client/ && yarn build && move build ../api",
-    "build": "rm -rf build && cd ../client/ && yarn build && mv build ../api",
+    "build:2": "rm -rf build && cd ../client/ && yarn build && mv build ../api",
     "test:e2e": "cd ../client/ && yarn cypress:run",
     "build:ui": "cd ../client/ && yarn build && mv build ../api"
   },
