@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const initialRouter = require('./controllers/initial')
+const healthRouter = require('./controllers/health')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const path = require('path')
@@ -10,6 +11,7 @@ const path = require('path')
 app.use(cors())
 app.use(express.json())
 app.use('/api/test', initialRouter)
+app.use('/health', healthRouter)
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets

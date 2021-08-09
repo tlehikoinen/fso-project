@@ -43,3 +43,15 @@ jobs:
         start: yarn prod
         wait-on: 'http://localhost:3003'
         command: yarn cypress:run
+
+      - name: heroku deployment
+      uses: akhileshns/heroku-deploy@v3.12.12
+      if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip')}}
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "fso-pro"
+        heroku_email: "akuankka75@gmail.com"
+        healthcheck: "https://fso-pro.herokuapp.com/health"
+        checkstring: "ok"
+        rollbackonhealthcheckfailed: true
+
