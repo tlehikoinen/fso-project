@@ -36,7 +36,7 @@ jobs:
         
   
       - name: Build
-        run: yarn builddel
+        run: yarn build:unix
   
       - name: E2E tests for production mode
         env: 
@@ -44,7 +44,7 @@ jobs:
           PORT: 3003
         uses: cypress-io/github-action@v2
         with:
-          start: yarn api:prod
+          start: yarn start:api:prod
           wait-on: 'http://localhost:3003'
           command: yarn cypress:run
   
