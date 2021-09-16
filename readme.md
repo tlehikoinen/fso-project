@@ -1,7 +1,8 @@
 # fso-project
 
--  Template for mern-stack with redux.  
--  Uses yarn workspaces and monorepo approach for having client/api in same repository
+-  Template for MERN-stack with Redux.  
+-  Uses Yarn workspaces and monorepo approach for having client/api in same repository
+-  <a href="https://fso-pro.herokuapp.com/">Deployed to heroku</a>
 
 
 ## Setup
@@ -19,6 +20,6 @@ yarn start:prod
 **If everything works correctly, you should be able to add/delete messages**
 
 
-## CI/CD pipeline
-Commits to maste
+### CI/CD pipeline
+Push / Pull request to master starts pipeline which lints and runs tests with jest and cypress. On push when commit message doesn't contain "#skip code is deployed to heroku and version gets a tag.
 
